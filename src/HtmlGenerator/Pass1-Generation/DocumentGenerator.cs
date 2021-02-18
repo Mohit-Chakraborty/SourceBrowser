@@ -298,7 +298,7 @@ namespace Microsoft.SourceBrowser.HtmlGenerator
             string webLink = GetWebLink();
             if (webLink != null)
             {
-                webLink = Markup.A(webLink, "Web&nbsp;Access", "_blank");
+                webLink = Markup.A(webLink, "View on GitHub", "_blank");
             }
             else
             {

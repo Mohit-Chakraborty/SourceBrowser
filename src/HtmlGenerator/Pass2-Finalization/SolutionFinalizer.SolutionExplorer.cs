@@ -34,7 +34,7 @@ namespace Microsoft.SourceBrowser.HtmlGenerator
                     customRootSorter = (l, r) => StringComparer.OrdinalIgnoreCase.Compare(l, r);
                 }
 
-                root.Sort((l, r) => customRootSorter(l.AssemblyName, r.AssemblyName));
+                root.Sort((l, r) => customRootSorter(l.Name, r.Name));
             }
             else
             {
