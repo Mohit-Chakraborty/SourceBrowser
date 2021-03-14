@@ -184,26 +184,72 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
         {
             string searchTerm = interpretation.CoreSearchTerm;
 
-            var search = new SortedSearch(i => symbols[i].Name, symbols.Count);
+            List<DeclaredSymbolInfo> result = new List<DeclaredSymbolInfo>();
 
-            int low, high;
-            search.FindBounds(searchTerm, out low, out high);
+            int wildCardIndex = searchTerm.IndexOf("*");
 
-            if (high < low)
+            if (wildCardIndex >= 0)
             {
-                return;
+                IEnumerable<DeclaredSymbolInfo> resultEnumerable = new List<DeclaredSymbolInfo>(); ;
+
+                if (wildCardIndex == 0)
+                {
+                    searchTerm = searchTerm[1..];
+
+                    resultEnumerable = symbols.Where(_ => _.Name.EndsWith(searchTerm, StringComparison.OrdinalIgnoreCase))
+                        .Where(_ => !interpretation.IsVerbatim || _.Name.Length == searchTerm.Length)
+                        .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects));
+
+                }
+                else if (wildCardIndex == searchTerm.Length - 1)
+                {
+                    searchTerm = searchTerm[0..^1];
+
+                    resultEnumerable = symbols.Where(_ => _.Name.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase))
+                        .Where(_ => !interpretation.IsVerbatim || _.Name.Length == searchTerm.Length)
+                        .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects));
+                }
+                else
+                {
+                    var prefixTerm = searchTerm.Substring(0, wildCardIndex);
+                    var suffixTerm = searchTerm[(wildCardIndex + 1)..];
+
+                    resultEnumerable = symbols
+                        .Where(_ => _.Name.StartsWith(prefixTerm, StringComparison.OrdinalIgnoreCase))
+                        .Where(_ => _.Name.EndsWith(suffixTerm, StringComparison.OrdinalIgnoreCase))
+                        .Where(_ => !interpretation.IsVerbatim || _.Name.Length == searchTerm.Length)
+                        .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects));
+                }
+
+                result = resultEnumerable
+                    .Where(query.Filter)
+                    .Where(interpretation.Filter)
+                    .Take(MaxRawResults)
+                    .ToList();
             }
+            else
+            {
+                var search = new SortedSearch(i => symbols[i].Name, symbols.Count);
 
-            query.PotentialRawResults = high - low + 1;
+                int low, high;
+                search.FindBounds(searchTerm, out low, out high);
 
-            var result = Enumerable
-                .Range(low, high - low + 1)
-                .Where(i => !interpretation.IsVerbatim || symbols[i].Name.Length == searchTerm.Length)
-                .Select(i => symbols[i].GetDeclaredSymbolInfo(huffman, assemblies, projects))
-                .Where(query.Filter)
-                .Where(interpretation.Filter)
-                .Take(MaxRawResults)
-                .ToList();
+                if (high < low)
+                {
+                    return;
+                }
+
+                query.PotentialRawResults = high - low + 1;
+
+                result = Enumerable
+                    .Range(low, high - low + 1)
+                    .Where(i => !interpretation.IsVerbatim || symbols[i].Name.Length == searchTerm.Length)
+                    .Select(i => symbols[i].GetDeclaredSymbolInfo(huffman, assemblies, projects))
+                    .Where(query.Filter)
+                    .Where(interpretation.Filter)
+                    .Take(MaxRawResults)
+                    .ToList();
+            }
 
             foreach (var entry in result)
             {
