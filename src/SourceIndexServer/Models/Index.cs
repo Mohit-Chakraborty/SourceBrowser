@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.SourceBrowser.Common;
 
@@ -180,48 +181,30 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
             }
         }
 
+        private static string WildCardToRegular(string value)
+        {
+            return "^" + Regex.Escape(value).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+        }
+
         private void FindSymbols(Query query, Interpretation interpretation)
         {
             string searchTerm = interpretation.CoreSearchTerm;
 
             List<DeclaredSymbolInfo> result = new List<DeclaredSymbolInfo>();
 
-            int wildCardIndex = searchTerm.IndexOf("*");
-
-            if (wildCardIndex >= 0)
+            bool wildCardsUsed = false;
+            if (searchTerm.Contains('?') || searchTerm.Contains('*'))
             {
-                IEnumerable<DeclaredSymbolInfo> resultEnumerable = new List<DeclaredSymbolInfo>(); ;
+                wildCardsUsed = true;
+                searchTerm = WildCardToRegular(searchTerm);
+            }
 
-                if (wildCardIndex == 0)
-                {
-                    searchTerm = searchTerm[1..];
+            if (wildCardsUsed)
+            {
+                Regex searchRegex = new Regex(searchTerm, RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-                    resultEnumerable = symbols.Where(_ => _.Name.EndsWith(searchTerm, StringComparison.OrdinalIgnoreCase))
-                        .Where(_ => !interpretation.IsVerbatim || _.Name.Length == searchTerm.Length)
-                        .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects));
-
-                }
-                else if (wildCardIndex == searchTerm.Length - 1)
-                {
-                    searchTerm = searchTerm[0..^1];
-
-                    resultEnumerable = symbols.Where(_ => _.Name.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase))
-                        .Where(_ => !interpretation.IsVerbatim || _.Name.Length == searchTerm.Length)
-                        .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects));
-                }
-                else
-                {
-                    var prefixTerm = searchTerm.Substring(0, wildCardIndex);
-                    var suffixTerm = searchTerm[(wildCardIndex + 1)..];
-
-                    resultEnumerable = symbols
-                        .Where(_ => _.Name.StartsWith(prefixTerm, StringComparison.OrdinalIgnoreCase))
-                        .Where(_ => _.Name.EndsWith(suffixTerm, StringComparison.OrdinalIgnoreCase))
-                        .Where(_ => !interpretation.IsVerbatim || _.Name.Length == searchTerm.Length)
-                        .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects));
-                }
-
-                result = resultEnumerable
+                result = symbols.Where(_ => searchRegex.IsMatch(_.Name))
+                    .Select(_ => _.GetDeclaredSymbolInfo(huffman, assemblies, projects))
                     .Where(query.Filter)
                     .Where(interpretation.Filter)
                     .Take(MaxRawResults)
