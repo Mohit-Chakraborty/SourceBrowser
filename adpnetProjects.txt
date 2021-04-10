@@ -247,10 +247,10 @@ C:\gh\azure-sdk-for-net\sdk\dns\Azure.ResourceManager.Dns\src\Azure.ResourceMana
 C:\gh\azure-sdk-for-net\sdk\dns\Azure.ResourceManager.Dns\tests\Azure.ResourceManager.Dns.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\dns\Microsoft.Azure.Management.Dns\src\Microsoft.Azure.Management.Dns.csproj
 C:\gh\azure-sdk-for-net\sdk\dns\Microsoft.Azure.Management.Dns\tests\Microsoft.Azure.Management.Dns.Tests.csproj
-C:\gh\azure-sdk-for-net\sdk\documenttranslation\Azure.AI.Translator.DocumentTranslation\src\Azure.AI.Translator.DocumentTranslation.csproj
-C:\gh\azure-sdk-for-net\sdk\documenttranslation\Azure.AI.Translator.DocumentTranslation\tests\Azure.AI.Translator.DocumentTranslation.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\edgegateway\Microsoft.Azure.Management.EdgeGateway\src\Microsoft.Azure.Management.EdgeGateway.csproj
 C:\gh\azure-sdk-for-net\sdk\edgegateway\Microsoft.Azure.Management.EdgeGateway\tests\Microsoft.Azure.Management.EdgeGateway.Tests.csproj
+C:\gh\azure-sdk-for-net\sdk\elastic\Microsoft.Azure.Management.Elastic\src\Microsoft.Azure.Management.Elastic.csproj
+C:\gh\azure-sdk-for-net\sdk\elastic\Microsoft.Azure.Management.Elastic\tests\Microsoft.Azure.Management.Elastic.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\eventgrid\Azure.Messaging.EventGrid\src\Azure.Messaging.EventGrid.csproj
 C:\gh\azure-sdk-for-net\sdk\eventgrid\Azure.Messaging.EventGrid\tests\Azure.Messaging.EventGrid.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\eventgrid\Microsoft.Azure.EventGrid\src\Microsoft.Azure.EventGrid.csproj
@@ -292,7 +292,7 @@ C:\gh\azure-sdk-for-net\sdk\extensions\Microsoft.Azure.WebJobs.Extensions.Client
 C:\gh\azure-sdk-for-net\sdk\extensions\Microsoft.Extensions.Azure\samples\Microsoft.Extensions.Azure.Samples.csproj
 C:\gh\azure-sdk-for-net\sdk\extensions\Microsoft.Extensions.Azure\src\Microsoft.Extensions.Azure.csproj
 C:\gh\azure-sdk-for-net\sdk\extensions\Microsoft.Extensions.Azure\tests\Microsoft.Extensions.Azure.Tests.csproj
-C:\gh\azure-sdk-for-net\sdk\formrecognizer\Azure.AI.FormRecognizer\perf\Azure.AI.FormRecognizer.Perf.csproj
+C:\gh\azure-sdk-for-net\sdk\formrecognizer\Azure.AI.FormRecognizer\perf\Azure.AI.FormRecognizer.Perf\Azure.AI.FormRecognizer.Perf.csproj
 C:\gh\azure-sdk-for-net\sdk\formrecognizer\Azure.AI.FormRecognizer\src\Azure.AI.FormRecognizer.csproj
 C:\gh\azure-sdk-for-net\sdk\formrecognizer\Azure.AI.FormRecognizer\tests\Azure.AI.FormRecognizer.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\frontdoor\Microsoft.Azure.Management.FrontDoor\src\Microsoft.Azure.Management.FrontDoor.csproj
@@ -370,6 +370,8 @@ C:\gh\azure-sdk-for-net\sdk\locationbasedservices\Microsoft.Azure.Management.Loc
 C:\gh\azure-sdk-for-net\sdk\locationbasedservices\Microsoft.Azure.Management.LocationBasedServices\tests\Microsoft.Azure.Management.LocationBasedServices.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\logic\Microsoft.Azure.Management.Logic\src\Microsoft.Azure.Management.Logic.csproj
 C:\gh\azure-sdk-for-net\sdk\logic\Microsoft.Azure.Management.Logic\tests\Microsoft.Azure.Management.Logic.Tests.csproj
+C:\gh\azure-sdk-for-net\sdk\logz\Microsoft.Azure.Management.Logz\src\Microsoft.Azure.Management.Logz.csproj
+C:\gh\azure-sdk-for-net\sdk\logz\Microsoft.Azure.Management.Logz\tests\Microsoft.Azure.Management.Logz.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\machinelearning\Microsoft.Azure.Management.MachineLearning\src\Microsoft.Azure.Management.MachineLearning.csproj
 C:\gh\azure-sdk-for-net\sdk\machinelearning\Microsoft.Azure.Management.MachineLearning\tests\Microsoft.Azure.Management.MachineLearning.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\machinelearningcompute\Microsoft.Azure.Management.MachineLearningCompute\src\Microsoft.Azure.Management.MachineLearningCompute.csproj
@@ -442,6 +444,8 @@ C:\gh\azure-sdk-for-net\sdk\monitor\Azure.Monitor.OpenTelemetry.Exporter\tests\A
 C:\gh\azure-sdk-for-net\sdk\monitor\Azure.Monitor.OpenTelemetry.Exporter\tests\Azure.Monitor.OpenTelemetry.Exporter.Tests\Azure.Monitor.OpenTelemetry.Exporter.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\monitor\Azure.Monitor.OpenTelemetry.Exporter\tests\Integration.Tests\Azure.Monitor.OpenTelemetry.Exporter.Integration.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\monitor\Azure.Monitor.OpenTelemetry.Exporter\tests\Integration.Tests.AspNetCoreWebApp\Azure.Monitor.OpenTelemetry.Exporter.Integration.Tests.AspNetCoreWebApp.csproj
+C:\gh\azure-sdk-for-net\sdk\monitor\Azure.Monitory.Query\src\Azure.Monitory.Query.csproj
+C:\gh\azure-sdk-for-net\sdk\monitor\Azure.Monitory.Query\tests\Azure.Monitory.Query.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\monitor\Microsoft.Azure.Management.Monitor\src\Microsoft.Azure.Management.Monitor.csproj
 C:\gh\azure-sdk-for-net\sdk\monitor\Microsoft.Azure.Management.Monitor\tests\Microsoft.Azure.Management.Monitor.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\mysql\Microsoft.Azure.Management.MySQL\src\Microsoft.Azure.Management.MySQL.csproj
@@ -638,6 +642,8 @@ C:\gh\azure-sdk-for-net\sdk\timeseriesinsights\Azure.IoT.TimeSeriesInsights\src\
 C:\gh\azure-sdk-for-net\sdk\timeseriesinsights\Azure.IoT.TimeSeriesInsights\tests\Azure.IoT.TimeSeriesInsights.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\trafficmanager\Microsoft.Azure.Management.TrafficManager\src\Microsoft.Azure.Management.TrafficManager.csproj
 C:\gh\azure-sdk-for-net\sdk\trafficmanager\Microsoft.Azure.Management.TrafficManager\tests\Microsoft.Azure.Management.TrafficManager.Tests.csproj
+C:\gh\azure-sdk-for-net\sdk\translation\Azure.AI.Translation.Document\src\Azure.AI.Translation.Document.csproj
+C:\gh\azure-sdk-for-net\sdk\translation\Azure.AI.Translation.Document\tests\Azure.AI.Translation.Document.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\websites\Microsoft.Azure.Management.WebSites\src\Microsoft.Azure.Management.Websites.csproj
 C:\gh\azure-sdk-for-net\sdk\websites\Microsoft.Azure.Management.WebSites\tests\Microsoft.Azure.Management.WebSites.Tests.csproj
 C:\gh\azure-sdk-for-net\sdk\workloadmonitor\Microsoft.Azure.Management.WorkloadMonitor\src\Microsoft.Azure.Management.WorkloadMonitor.csproj
