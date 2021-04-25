@@ -27,6 +27,17 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
         public List<string> ResultMSBuildTargets { get; private set; }
         public List<string> ResultMSBuildTasks { get; private set; }
 
+        public bool IncludeTrack1Projects { get; private set; }
+        public bool IncludeTrack2Projects { get; private set; }
+
+        private const string AzureSdkTrack1ProjectNamePrefix = "Microsoft.Azure";
+        private const string AzureSdkTrack2ProjectNamePrefix = "Azure.";
+
+        private const string IncludeTrack1ProjectsTerm = "t1";
+        private const string ExcludeTrack1ProjectsTerm = "-t1";
+        private const string IncludeTrack2ProjectsTerm = "t2";
+        private const string ExcludeTrack2ProjectsTerm = "-t2";
+
         private readonly HashSet<DeclaredSymbolInfo> resultSymbolsSet = new HashSet<DeclaredSymbolInfo>();
         private static readonly string[] supportedFileExtensions =
         {
@@ -50,6 +61,9 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
             ResultAssemblies = new List<AssemblyInfo>();
             ResultProjects = new List<AssemblyInfo>();
             Interpretations = new List<Interpretation>();
+
+            IncludeTrack1Projects = false;
+            IncludeTrack2Projects = true;
 
             OriginalString = queryString;
             Parse(queryString);
@@ -94,7 +108,26 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
             }
             else if (!this.Names.Contains(term))
             {
-                this.Names.Add(term);
+                if (term.Equals(IncludeTrack1ProjectsTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    IncludeTrack1Projects = true;
+                }
+                else if (term.Equals(ExcludeTrack1ProjectsTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    IncludeTrack1Projects = false;
+                }
+                else if (term.Equals(IncludeTrack2ProjectsTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    IncludeTrack2Projects = true;
+                }
+                else if (term.Equals(ExcludeTrack2ProjectsTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    IncludeTrack2Projects = false;
+                }
+                else
+                {
+                    this.Names.Add(term);
+                }
             }
         }
 
@@ -256,6 +289,11 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
 
         private bool FilterProjects(DeclaredSymbolInfo symbol)
         {
+            if (!FilterAzureSdkProjects(symbol))
+            {
+                return false;
+            }
+
             if (!this.Paths.Any())
             {
                 return true;
@@ -267,6 +305,26 @@ namespace Microsoft.SourceBrowser.SourceIndexServer.Models
                 {
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+        private bool FilterAzureSdkProjects(DeclaredSymbolInfo symbol)
+        {
+            if (symbol.ProjectFilePath == null)
+            {
+                return true;
+            }
+
+            if (symbol.ProjectFilePath.StartsWith(AzureSdkTrack1ProjectNamePrefix, StringComparison.Ordinal))
+            {
+                return IncludeTrack1Projects;
+            }
+
+            if (symbol.ProjectFilePath.StartsWith(AzureSdkTrack2ProjectNamePrefix, StringComparison.Ordinal))
+            {
+                return IncludeTrack2Projects;
             }
 
             return true;
